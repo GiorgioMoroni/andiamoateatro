@@ -1,0 +1,85 @@
+package entities;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
+
+public class Prenotazione {
+    private Integer id;
+    private Integer numeroPosti;
+    private LocalDateTime dataPrenotazione;
+    private Double prezzoTotale;
+    private Integer idUtente;
+    private Integer idSpettacolo;
+
+    public Prenotazione(){}
+
+    public Prenotazione(Integer id, Integer numeroPosti, LocalDateTime dataPrenotazione, Double prezzoTotale, Integer idUtente, Integer idSpettacolo) {
+        this.id = id;
+        this.numeroPosti = numeroPosti;
+        this.dataPrenotazione = dataPrenotazione;
+        this.prezzoTotale = prezzoTotale;
+        this.idUtente = idUtente;
+        this.idSpettacolo = idSpettacolo;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getNumeroPosti() {
+        return numeroPosti;
+    }
+
+    public void setNumeroPosti(Integer numeroPosti) {
+        this.numeroPosti = numeroPosti;
+    }
+
+    public LocalDateTime getDataPrenotazione() {
+        return dataPrenotazione;
+    }
+
+    public void setDataPrenotazione(LocalDateTime dataPrenotazione) {
+        this.dataPrenotazione = dataPrenotazione;
+    }
+
+    public Double getPrezzoTotale() {
+        return prezzoTotale;
+    }
+
+    public void setPrezzoTotale(Double prezzoTotale) {
+        this.prezzoTotale = prezzoTotale;
+    }
+
+    public Integer getIdUtente() {
+        return idUtente;
+    }
+
+    public void setIdUtente(Integer idUtente) {
+        this.idUtente = idUtente;
+    }
+
+    public Integer getIdSpettacolo() {
+        return idSpettacolo;
+    }
+
+    public void setIdSpettacolo(Integer idSpettacolo) {
+        this.idSpettacolo = idSpettacolo;
+    }
+
+    @Override
+    public String toString() {
+        return "Prenotazione{" +
+                "id=" + id +
+                ", numeroPosti=" + numeroPosti +
+                ", dataPrenotazione=" + dataPrenotazione +
+                ", prezzoTotale=" + prezzoTotale +
+                ", idUtente=" + idUtente +
+                ", idSpettacolo=" + idSpettacolo +
+                '}';
+    }
+}
