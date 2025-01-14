@@ -2,9 +2,7 @@ package repositories;
 
 import configuration.DBConnection;
 import dto.PrenotazioneRequest;
-import dto.SalaRequest;
 import entities.Prenotazione;
-import entities.Sala;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -45,25 +43,25 @@ public class PrenotazioneRepository {
     }
 
     public static void insertPrenotazione(PrenotazioneRequest request) throws SQLException {
-        String query = "INSERT INTO prenotazione (numero_posti,data_prenotazione,prezzo_totale, utente_id,spettacolo_id)" +
+        String query = "INSERT INTO prenotazione (data_prenotazione,prezzo_totale, utente_id,spettacolo_id,posto_id)" +
                 "VALUES (?,?,?,?,?)";
         PreparedStatement statement = connection.prepareStatement(query);
-        statement.setInt(1,request.numeroPosti());
-        statement.setTimestamp(2,Timestamp.valueOf(request.dataPrenotazione()));
-        statement.setDouble(3,request.prezzoTotale());
-        statement.setInt(4, request.idUtente());
-        statement.setInt(5, request.idSpettacolo());
+        statement.setTimestamp(1,Timestamp.valueOf(request.dataPrenotazione()));
+        statement.setDouble(2,request.prezzoTotale());
+        statement.setInt(3, request.idUtente());
+        statement.setInt(4, request.idSpettacolo());
+        statement.setInt(5, request.idPosto());
         statement.executeUpdate();
     }
 
     public static void updatePrenotazione(Integer id, PrenotazioneRequest request) throws SQLException {
-        String query = "UPDATE prenotazione SET numero_posti = ?, data_prenotazione = ?, prezzo_totale = ?, utente_id = ?, spettacolo_id = ? WHERE id = ?";
+        String query = "UPDATE prenotazione SET data_prenotazione = ?, prezzo_totale = ?, utente_id = ?, spettacolo_id = ?, posto_id = ? WHERE id = ?";
         PreparedStatement statement = connection.prepareStatement(query);
-        statement.setInt(1,request.numeroPosti());
-        statement.setTimestamp(2,Timestamp.valueOf(request.dataPrenotazione()));
-        statement.setDouble(3,request.prezzoTotale());
-        statement.setInt(4, request.idUtente());
-        statement.setInt(5, request.idSpettacolo());
+        statement.setTimestamp(1,Timestamp.valueOf(request.dataPrenotazione()));
+        statement.setDouble(2,request.prezzoTotale());
+        statement.setInt(3, request.idUtente());
+        statement.setInt(4, request.idSpettacolo());
+        statement.setInt(5, request.idPosto());
         statement.setInt(6, id);
         statement.executeUpdate();
     }
@@ -78,11 +76,11 @@ public class PrenotazioneRepository {
     private static Prenotazione mapResultSetToPrenotazione(ResultSet resultSet) throws SQLException {
         Prenotazione prenotazione = new Prenotazione();
         prenotazione.setId(resultSet.getInt("id"));
-        prenotazione.setNumeroPosti(resultSet.getInt("numero_posti"));
         prenotazione.setDataPrenotazione(resultSet.getTimestamp("data_prenotazione").toLocalDateTime());
         prenotazione.setPrezzoTotale(resultSet.getDouble("prezzo_totale"));
         prenotazione.setIdUtente(resultSet.getInt("utente_id"));
         prenotazione.setIdSpettacolo(resultSet.getInt("spettacolo_id"));
+        prenotazione.setIdPosto(resultSet.getInt("posto_id"));
         return prenotazione;
     }
 }

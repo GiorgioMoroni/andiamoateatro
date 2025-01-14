@@ -3,13 +3,13 @@ package entities;
 public class Posto {
 
     private Integer id;
-    private Character fila;
+    private Integer fila;
     private Integer numero;
     private Integer idSala;
 
     public Posto(){}
 
-    public Posto(Integer id, Character fila, Integer numero, Integer idSala) {
+    public Posto(Integer id, Integer fila, Integer numero, Integer idSala) {
         this.id = id;
         this.fila = fila;
         this.numero = numero;
@@ -24,11 +24,11 @@ public class Posto {
         this.id = id;
     }
 
-    public Character getFila() {
+    public Integer getFila() {
         return fila;
     }
 
-    public void setFila(Character fila) {
+    public void setFila(Integer fila) {
         this.fila = fila;
     }
 

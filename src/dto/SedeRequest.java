@@ -2,7 +2,6 @@ package dto;
 
 import validators.Validator;
 
-import java.time.LocalDateTime;
 
 public record SedeRequest(
         String nome,

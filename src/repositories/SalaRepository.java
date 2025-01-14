@@ -2,9 +2,7 @@ package repositories;
 
 import configuration.DBConnection;
 import dto.SalaRequest;
-import dto.SpettacoloRequest;
 import entities.Sala;
-import entities.Spettacolo;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -45,8 +43,8 @@ public class SalaRepository {
     }
 
     public static void insertSala(SalaRequest request) throws SQLException {
-        String query = "INSERT INTO sala (nome,numero_posti,numero_file,sala_id)" +
-                "VALUES (?,?,?,?)";
+        String query = "INSERT INTO sala (nome,numero_posti,sede_id)" +
+                "VALUES (?,?,?)";
         PreparedStatement statement = connection.prepareStatement(query);
         statement.setString(1,request.nome());
         statement.setInt(2,request.numeroPosti());
@@ -55,7 +53,7 @@ public class SalaRepository {
     }
 
     public static void updateSala(Integer id, SalaRequest request) throws SQLException {
-        String query = "UPDATE sala SET nome = ?, numero_posti = ?, numero_file = ?, sala_id = ? WHERE id = ?";
+        String query = "UPDATE sala SET nome = ?, numero_posti = ?, sede_id = ? WHERE id = ?";
         PreparedStatement statement = connection.prepareStatement(query);
         statement.setString(1,request.nome());
         statement.setInt(2,request.numeroPosti());

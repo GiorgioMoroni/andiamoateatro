@@ -2,9 +2,7 @@ package repositories;
 
 import configuration.DBConnection;
 import dto.PostoRequest;
-import dto.SalaRequest;
 import entities.Posto;
-import entities.Sala;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -48,7 +46,7 @@ public class PostoRepository {
         String query = "INSERT INTO posto (fila,numero,sala_id)" +
                 "VALUES (?,?,?)";
         PreparedStatement statement = connection.prepareStatement(query);
-        statement.setString(1, String.valueOf(request.fila()));
+        statement.setInt(1, request.fila());
         statement.setInt(2,request.numero());
         statement.setInt(3,request.idSala());
         statement.executeUpdate();
@@ -57,7 +55,7 @@ public class PostoRepository {
     public static void updatePosto(Integer id, PostoRequest request) throws SQLException {
         String query = "UPDATE posto SET fila = ?, numero = ?, sala_id = ? WHERE id = ?";
         PreparedStatement statement = connection.prepareStatement(query);
-        statement.setString(1, String.valueOf(request.fila()));
+        statement.setInt(1, request.fila());
         statement.setInt(2,request.numero());
         statement.setInt(3,request.idSala());
         statement.setInt(4,id);
@@ -74,7 +72,7 @@ public class PostoRepository {
     private static Posto mapResultSetToPosto(ResultSet resultSet) throws SQLException {
         Posto posto = new Posto();
         posto.setId(resultSet.getInt("id"));
-        posto.setFila(resultSet.getString("fila").charAt(0));
+        posto.setFila(resultSet.getInt("fila"));
         posto.setNumero(resultSet.getInt("numero"));
         posto.setIdSala(resultSet.getInt("sala_id"));
         return posto;

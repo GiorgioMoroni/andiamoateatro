@@ -19,7 +19,7 @@ public record UtenteRequest(
         this.cognome = Validator.requireNotBlank(cognome);
         this.email = Validator.validRegex(email, "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$");
         this.indirizzo = Validator.requireNotBlank(indirizzo);
-        this.telefono = Validator.validRegex(telefono, "^\\+([1-9]{1,4})(\\d{1,4})(\\d{1,4})(\\d{1,4})$");
+        this.telefono = Validator.validRegexOrNull(telefono, "^\\+([1-9]{1,4})(\\d{1,4})(\\d{1,4})(\\d{1,4})$");
     }
 
 }

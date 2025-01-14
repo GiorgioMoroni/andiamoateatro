@@ -1,6 +1,5 @@
 package entities;
 
-import java.util.UUID;
 
 public class Utente {
     private Integer id;

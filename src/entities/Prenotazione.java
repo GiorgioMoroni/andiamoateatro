@@ -1,26 +1,24 @@
 package entities;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 public class Prenotazione {
     private Integer id;
-    private Integer numeroPosti;
     private LocalDateTime dataPrenotazione;
     private Double prezzoTotale;
     private Integer idUtente;
     private Integer idSpettacolo;
+    private Integer idPosto;
 
     public Prenotazione(){}
 
-    public Prenotazione(Integer id, Integer numeroPosti, LocalDateTime dataPrenotazione, Double prezzoTotale, Integer idUtente, Integer idSpettacolo) {
+    public Prenotazione(Integer id, LocalDateTime dataPrenotazione, Double prezzoTotale, Integer idUtente, Integer idSpettacolo, Integer idPosto) {
         this.id = id;
-        this.numeroPosti = numeroPosti;
         this.dataPrenotazione = dataPrenotazione;
         this.prezzoTotale = prezzoTotale;
         this.idUtente = idUtente;
         this.idSpettacolo = idSpettacolo;
+        this.idPosto = idPosto;
     }
 
     public Integer getId() {
@@ -29,14 +27,6 @@ public class Prenotazione {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public Integer getNumeroPosti() {
-        return numeroPosti;
-    }
-
-    public void setNumeroPosti(Integer numeroPosti) {
-        this.numeroPosti = numeroPosti;
     }
 
     public LocalDateTime getDataPrenotazione() {
@@ -71,11 +61,18 @@ public class Prenotazione {
         this.idSpettacolo = idSpettacolo;
     }
 
+    public Integer getIdPosto() {
+        return idPosto;
+    }
+
+    public void setIdPosto(Integer idPosto) {
+        this.idPosto = idPosto;
+    }
+
     @Override
     public String toString() {
         return "Prenotazione{" +
                 "id=" + id +
-                ", numeroPosti=" + numeroPosti +
                 ", dataPrenotazione=" + dataPrenotazione +
                 ", prezzoTotale=" + prezzoTotale +
                 ", idUtente=" + idUtente +

@@ -2,9 +2,7 @@ package repositories;
 
 import configuration.DBConnection;
 import dto.SedeRequest;
-import dto.SpettacoloRequest;
 import entities.Sede;
-import entities.Spettacolo;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -52,7 +50,7 @@ public class SedeRepository {
         statement.setString(2, request.indirizzo());
         statement.setString(3, request.comune());
         statement.setBoolean(4, request.tipoLuogo());
-        statement.executeQuery();
+        statement.executeUpdate();
 
     }
 

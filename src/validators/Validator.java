@@ -1,10 +1,6 @@
 package validators;
 
-import dto.SalaRequest;
-import entities.Sala;
-
 import java.util.Date;
-import java.util.Scanner;
 
 public class Validator {
 
@@ -21,6 +17,11 @@ public class Validator {
             throw new IllegalArgumentException("Input non valido");
         }
         return toValidate;
+    }
+
+    public static String validRegexOrNull(String toValidate, String regex) {
+        if (toValidate == null) return toValidate;
+        return validRegex(toValidate, regex);
     }
 
     public static String requireNotBlank(String s) {
@@ -96,16 +97,6 @@ public class Validator {
         }
         if( a <= b || a >= c){
             throw new IllegalArgumentException("Fuori dall'intervallo");
-        }
-        return a;
-    }
-
-    public static Character requireBetween(Character a){
-        if(a == null){
-            throw new NullPointerException("Non può essere null");
-        }
-        if((a <= 'a' || a >= 'z') && (a <= 'A' || a >= 'Z')){
-            throw new IllegalArgumentException("Input non valido");
         }
         return a;
     }

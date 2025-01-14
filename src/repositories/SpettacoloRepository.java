@@ -2,7 +2,6 @@ package repositories;
 
 import configuration.DBConnection;
 import dto.SpettacoloRequest;
-import dto.UtenteRequest;
 import entities.Spettacolo;
 
 import java.sql.*;
@@ -44,24 +43,28 @@ public class SpettacoloRepository {
     }
 
     public static void insertSpettacolo(SpettacoloRequest request) throws SQLException {
-        String query = "INSERT INTO spettacolo (orario,genere,prezzo,durata)" +
-                "VALUES (?,?,?,?)";
+        String query = "INSERT INTO spettacolo (nome,orario,genere,prezzo,durata,sede_id)" +
+                "VALUES (?,?,?,?,?,?)";
         PreparedStatement statement = connection.prepareStatement(query);
-        statement.setTimestamp(1,Timestamp.valueOf(request.orario()));
-        statement.setString(2,request.genere());
-        statement.setDouble(3,request.prezzo());
-        statement.setInt(4,request.durata());
+        statement.setString(1,request.nome());
+        statement.setTimestamp(2,Timestamp.valueOf(request.orario()));
+        statement.setString(3,request.genere());
+        statement.setDouble(4,request.prezzo());
+        statement.setInt(5,request.durata());
+        statement.setInt(6,request.idSala());
         statement.executeUpdate();
     }
 
     public static void updateSpettacolo(Integer id, SpettacoloRequest request) throws SQLException {
-        String query = "UPDATE spettacolo SET orario = ?, genere = ?, prezzo = ?, durata = ? WHERE id = ?";
+        String query = "UPDATE spettacolo SET nome = ?, orario = ?, genere = ?, prezzo = ?, durata = ?, sala_id = ? WHERE id = ?";
         PreparedStatement statement = connection.prepareStatement(query);
-        statement.setTimestamp(1,Timestamp.valueOf(request.orario()));
-        statement.setString(2,request.genere());
-        statement.setDouble(3,request.prezzo());
-        statement.setInt(4,request.durata());
-        statement.setInt(6,id);
+        statement.setString(1,request.nome());
+        statement.setTimestamp(2,Timestamp.valueOf(request.orario()));
+        statement.setString(3,request.genere());
+        statement.setDouble(4,request.prezzo());
+        statement.setInt(5,request.durata());
+        statement.setInt(6,request.idSala());
+        statement.setInt(7,id);
         statement.executeUpdate();
     }
 
@@ -75,11 +78,12 @@ public class SpettacoloRepository {
     private static Spettacolo mapResultSetToSpettacolo(ResultSet resultSet) throws SQLException {
         Spettacolo spettacolo = new Spettacolo();
         spettacolo.setId(resultSet.getInt("id"));
+        spettacolo.setGenere(resultSet.getString("nome"));
         spettacolo.setOrario(resultSet.getTimestamp("orario").toLocalDateTime());
         spettacolo.setGenere(resultSet.getString("genere"));
         spettacolo.setPrezzo(resultSet.getDouble("prezzo"));
         spettacolo.setDurata(resultSet.getInt("durata"));
-        spettacolo.setIdSede(resultSet.getInt("sede_id"));
+        spettacolo.setIdSala(resultSet.getInt("sala_id"));
         return spettacolo;
     }
 }

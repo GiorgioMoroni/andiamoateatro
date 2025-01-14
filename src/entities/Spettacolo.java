@@ -1,6 +1,5 @@
 package entities;
 
-import java.sql.Time;
 import java.time.LocalDateTime;
 
 public class Spettacolo {
@@ -10,18 +9,18 @@ public class Spettacolo {
     private String genere;
     private Double prezzo;
     private Integer durata;
-    private Integer idSede;
+    private Integer idSala;
 
     public Spettacolo(){}
 
 
-    public Spettacolo(Integer id, LocalDateTime orario, String genere, Double prezzo, Integer durata, Integer idSede) {
+    public Spettacolo(Integer id, LocalDateTime orario, String genere, Double prezzo, Integer durata, Integer idSala) {
         this.id = id;
         this.orario = orario;
         this.genere = genere;
         this.prezzo = prezzo;
         this.durata = durata;
-        this.idSede = idSede;
+        this.idSala = idSala;
     }
 
     public Integer getId() {
@@ -64,12 +63,12 @@ public class Spettacolo {
         this.durata = durata;
     }
 
-    public Integer getIdSede() {
-        return idSede;
+    public Integer getIdSala() {
+        return idSala;
     }
 
-    public void setIdSede(Integer idSede) {
-        this.idSede = idSede;
+    public void setIdSala(Integer idSala) {
+        this.idSala = idSala;
     }
 
     @Override
@@ -80,7 +79,7 @@ public class Spettacolo {
                 ", genere='" + genere + '\'' +
                 ", prezzo=" + prezzo +
                 ", durata=" + durata +
-                ", idSede=" + idSede +
+                ", idSede=" + idSala +
                 '}';
     }
 }
