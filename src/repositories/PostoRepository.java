@@ -42,6 +42,18 @@ public class PostoRepository {
         return posti;
     }
 
+    public static List<Posto> getAllByIdSala(Integer idSala) throws SQLException {
+        String query = "SELECT * FROM posto Where sala_id = ?";
+        PreparedStatement statement = connection.prepareStatement(query);
+        statement.setInt(1, idSala);
+        ResultSet resultSet = statement.executeQuery(query);
+        List<Posto> posti = new ArrayList<>();
+        while (resultSet.next()) {
+            posti.add(mapResultSetToPosto(resultSet));
+        }
+        return posti;
+    }
+
     public static void insertPosto(PostoRequest request) throws SQLException {
         String query = "INSERT INTO posto (fila,numero,sala_id)" +
                 "VALUES (?,?,?)";

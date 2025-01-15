@@ -61,7 +61,7 @@ public class UtenteRepository {
             statement.setString(2,request.cognome());
             statement.setString(3,request.email());
             statement.setString(4,request.indirizzo());
-            statement.setString(4,request.telefono());
+            statement.setString(5,request.telefono());
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);

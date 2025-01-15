@@ -48,7 +48,7 @@ public class SalaRepository {
         PreparedStatement statement = connection.prepareStatement(query);
         statement.setString(1,request.nome());
         statement.setInt(2,request.numeroPosti());
-        statement.setInt(4,request.idSede());
+        statement.setInt(3,request.idSede());
         statement.executeUpdate();
     }
 

@@ -31,6 +31,35 @@ public class PrenotazioneRepository {
         else throw new IllegalArgumentException("prenotazione con id " + id + " non presente");
     }
 
+    public static List<Prenotazione> getAllByIdUtenteEIdSpettacolo(Integer idUtente, Integer idSpettacolo) throws SQLException {
+        String query = "SELECT * FROM prenotazione WHERE utente_id = ? AND spettacolo_id = ?";
+        PreparedStatement statement = connection.prepareStatement(query);
+        statement.setInt(1, idUtente);
+        statement.setInt(2, idSpettacolo);
+        ResultSet resultSet = statement.executeQuery();
+        List<Prenotazione> prenotazioni = new ArrayList<>();
+        while (resultSet.next()) {
+            prenotazioni.add(mapResultSetToPrenotazione(resultSet));
+        }
+
+        return prenotazioni;
+    }
+
+    public static List<Prenotazione> getAllByIdSpettacolo(Integer idSpettacolo) throws SQLException {
+        String query = "SELECT * FROM prenotazione WHERE spettacolo_id = ?";
+        PreparedStatement statement = connection.prepareStatement(query);
+        statement.setInt(1, idSpettacolo);
+        ResultSet resultSet = statement.executeQuery();
+        List<Prenotazione> prenotazioni = new ArrayList<>();
+        while (resultSet.next()) {
+            prenotazioni.add(mapResultSetToPrenotazione(resultSet));
+        }
+
+        return prenotazioni;
+    }
+
+
+
     public static List<Prenotazione> getAll() throws SQLException {
         String query = "SELECT * FROM prenotazione";
         Statement statement = connection.createStatement();

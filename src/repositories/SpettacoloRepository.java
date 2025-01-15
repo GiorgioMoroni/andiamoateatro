@@ -2,6 +2,7 @@ package repositories;
 
 import configuration.DBConnection;
 import dto.SpettacoloRequest;
+import entities.Posto;
 import entities.Spettacolo;
 
 import java.sql.*;
@@ -43,8 +44,10 @@ public class SpettacoloRepository {
         return spettacoli;
     }
 
+
+
     public static void insertSpettacolo(SpettacoloRequest request) throws SQLException {
-        String query = "INSERT INTO spettacolo (nome,orario,genere,prezzo,durata,sede_id)" +
+        String query = "INSERT INTO spettacolo (nome,orario,genere,prezzo,durata,sala_id)" +
                 "VALUES (?,?,?,?,?,?)";
         PreparedStatement statement = connection.prepareStatement(query);
         statement.setString(1,request.nome());
@@ -89,10 +92,28 @@ public class SpettacoloRepository {
     }
 
     public static List<Spettacolo> searchSpettacoli(String comune, LocalDateTime data) throws SQLException {
-        String query = "SELECT * FROM spettacolo AS s JOIN sala AS sa ON s.sala_id = sa.id WHERE sa.comune = ? AND DATE(s.orario) = ? ";
+        String query = "SELECT * FROM spettacolo JOIN sala ON spettacolo.sala_id = sala.id JOIN sede ON sala.sede_id = sede.id WHERE sede.comune = ? AND DATE(spettacolo.orario) = ? ";
         PreparedStatement statement = connection.prepareStatement(query);
         statement.setString(1, comune);
         statement.setDate(2, java.sql.Date.valueOf(data.toLocalDate()));
+
+        ResultSet resultSet = statement.executeQuery();
+        List<Spettacolo> spettacoli = new ArrayList<>();
+
+        while (resultSet.next()) {
+            spettacoli.add(mapResultSetToSpettacolo(resultSet));
+        }
+        return spettacoli;
+
+    }
+
+    public static List<Spettacolo> searchSpettacoliBy4elementi(String comune, LocalDateTime data, String genere, Boolean bool) throws SQLException {
+        String query = "SELECT * FROM spettacolo JOIN sala ON spettacolo.sala_id = sala.id JOIN sede ON sala.sede_id = sede.id WHERE sede.comune = ? AND DATE(spettacolo.orario) = ? AND spettacolo.genere = ? AND sede.tipo_luogo = ?";
+        PreparedStatement statement = connection.prepareStatement(query);
+        statement.setString(1, comune);
+        statement.setDate(2, java.sql.Date.valueOf(data.toLocalDate()));
+        statement.setString(3, genere);
+        statement.setBoolean(4, bool);
 
         ResultSet resultSet = statement.executeQuery();
         List<Spettacolo> spettacoli = new ArrayList<>();
