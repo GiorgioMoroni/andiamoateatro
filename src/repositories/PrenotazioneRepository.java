@@ -83,4 +83,6 @@ public class PrenotazioneRepository {
         prenotazione.setIdPosto(resultSet.getInt("posto_id"));
         return prenotazione;
     }
+
+
 }

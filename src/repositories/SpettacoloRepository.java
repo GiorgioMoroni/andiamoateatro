@@ -5,6 +5,7 @@ import dto.SpettacoloRequest;
 import entities.Spettacolo;
 
 import java.sql.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -85,5 +86,21 @@ public class SpettacoloRepository {
         spettacolo.setDurata(resultSet.getInt("durata"));
         spettacolo.setIdSala(resultSet.getInt("sala_id"));
         return spettacolo;
+    }
+
+    public static List<Spettacolo> searchSpettacoli(String comune, LocalDateTime data) throws SQLException {
+        String query = "SELECT * FROM spettacolo AS s JOIN sala AS sa ON s.sala_id = sa.id WHERE sa.comune = ? AND DATE(s.orario) = ? ";
+        PreparedStatement statement = connection.prepareStatement(query);
+        statement.setString(1, comune);
+        statement.setDate(2, java.sql.Date.valueOf(data.toLocalDate()));
+
+        ResultSet resultSet = statement.executeQuery();
+        List<Spettacolo> spettacoli = new ArrayList<>();
+
+        while (resultSet.next()) {
+            spettacoli.add(mapResultSetToSpettacolo(resultSet));
+        }
+        return spettacoli;
+
     }
 }
