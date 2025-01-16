@@ -44,7 +44,31 @@ public class SpettacoloRepository {
         return spettacoli;
     }
 
-
+    public static List<Spettacolo> suggerimentoSpettacoli(Integer idUtente) throws SQLException {
+        String query = """
+                WITH ultimi_spettacoli AS (
+                    SELECT s.genere, p.data_prenotazione
+                    FROM prenotazione p
+                    JOIN spettacolo s ON p.spettacolo_id = s.id
+                    WHERE p.utente_id = 1
+                    AND p.data_prenotazione < CURDATE()
+                    ORDER BY p.data_prenotazione DESC
+                    LIMIT 3
+                )
+                SELECT DISTINCT s.*
+                FROM spettacolo s
+                JOIN ultimi_spettacoli us ON s.genere = us.genere
+                WHERE s.orario BETWEEN  DATE_ADD(NOW(), INTERVAL 1 DAY) AND DATE_ADD(NOW(), INTERVAL 1 MONTH);
+                """;
+        PreparedStatement statement = connection.prepareStatement(query);
+        statement.setInt(1, idUtente);
+        ResultSet resultSet = statement.executeQuery();
+        List<Spettacolo> spettacoli = new ArrayList<>();
+        while (resultSet.next()) {
+            spettacoli.add(mapResultSetToSpettacolo(resultSet));
+        }
+        return spettacoli;
+    }
 
     public static void insertSpettacolo(SpettacoloRequest request) throws SQLException {
         String query = "INSERT INTO spettacolo (nome,orario,genere,prezzo,durata,sala_id)" +

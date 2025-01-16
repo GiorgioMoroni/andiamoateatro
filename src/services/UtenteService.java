@@ -51,7 +51,7 @@ public class UtenteService {
         if(PrenotazioneRepository.getAllByIdUtenteEIdSpettacolo(request.idUtente(), request.idSpettacolo()).size() >= 4){
             throw new IllegalArgumentException("Utente " + request.idUtente() + " ha gia effettuato il numero massimo di prenotazioni per lo spettacolo " + request.idSpettacolo());
         }
-        else if(PrenotazioneRepository.getAll().stream().anyMatch(prenotazione -> prenotazione.getIdPosto().equals(request.idPosto()))){
+        else if(PrenotazioneRepository.getAllByIdSpettacolo(request.idSpettacolo()).stream().anyMatch(prenotazione -> prenotazione.getIdPosto().equals(request.idPosto()))){
             throw new IllegalArgumentException("Posto " + request.idPosto() + " già acquistato e non disponibile");
         }
         else if (!idSalaSpettacolo.equals(idSalaPosto)) {
